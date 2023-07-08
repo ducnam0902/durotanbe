@@ -1,5 +1,6 @@
 package com.durotan.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -21,10 +22,12 @@ public class UserPaymentMethod {
 
     @ManyToOne
     @JoinColumn( name = "payment_id", referencedColumnName = "id")
+    @JsonIgnore
     private Payment payment;
 
     @ManyToOne
     @JoinColumn( name = "user_id", referencedColumnName = "id")
+    @JsonIgnore
     private User user;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy ="paymentMethod")

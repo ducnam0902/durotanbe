@@ -1,5 +1,6 @@
 package com.durotan.controller;
 
+import com.durotan.daodto.ProductDto;
 import com.durotan.entity.ProductItem;
 import com.durotan.services.ProductItemServices;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class ProductItemController {
         this.productItemServices = productItemServices;
     }
     @GetMapping
-    public ResponseEntity<List<ProductItem>> getAllProducts(){
+    public ResponseEntity<List<ProductDto>> getAllProducts(){
         return ResponseEntity.ok(productItemServices.getAllProductItem());
     }
 }

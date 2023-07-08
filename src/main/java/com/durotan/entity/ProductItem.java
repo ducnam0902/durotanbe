@@ -1,5 +1,6 @@
 package com.durotan.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -22,10 +23,12 @@ public class ProductItem {
 
     @ManyToOne
     @JoinColumn( name ="size_id", referencedColumnName = "id")
+    @JsonIgnore
     private Size size;
 
     @ManyToOne
     @JoinColumn( name ="color_id", referencedColumnName = "id")
+    @JsonIgnore
     private Color colors;
 
     @OneToMany(fetch =  FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "productItem")
@@ -36,6 +39,7 @@ public class ProductItem {
 
     @ManyToOne
     @JoinColumn( name ="product_id", referencedColumnName = "id")
+    @JsonIgnore
     private Product product;
 
 }

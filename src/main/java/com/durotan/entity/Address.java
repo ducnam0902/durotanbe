@@ -1,5 +1,6 @@
 package com.durotan.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -25,11 +26,13 @@ public class Address {
 
     @ManyToOne
     @JoinColumn(name ="country_id", referencedColumnName = "id")
+    @JsonIgnore
     private Country country;
 
     @ManyToMany(
             cascade = { CascadeType.PERSIST, CascadeType.MERGE},
             fetch = FetchType.LAZY, mappedBy = "address"    )
+    @JsonIgnore
     private Set<User> users = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy ="address")

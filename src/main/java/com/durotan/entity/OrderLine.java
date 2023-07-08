@@ -1,5 +1,6 @@
 package com.durotan.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,10 +20,12 @@ public class OrderLine {
 
     @ManyToOne
     @JoinColumn( name = "shop_order", referencedColumnName = "id")
+    @JsonIgnore
     private ShopOrder shopOrder;
 
     @ManyToOne
     @JoinColumn( name = "product_item", referencedColumnName = "id")
+    @JsonIgnore
     private ProductItem productItems;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy ="orderLine")
