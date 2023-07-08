@@ -1,0 +1,30 @@
+package com.durotan.entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import lombok.Data;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Data
+@Table( name ="product")
+public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
+    private String name;
+    @Column( length = 100000 )
+    private String description;
+
+    @ManyToOne
+    @JoinColumn(name ="category_id", referencedColumnName = "id")
+    private ProductCategory category;
+
+    @OneToMany(fetch =  FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "product")
+    private List<ProductItem> productItemList = new ArrayList<>();
+
+
+}

@@ -8,14 +8,13 @@ import java.util.List;
 
 @Entity
 @Data
-@Table( name = "color")
-public class Color {
+@Table( name = "country")
+public class Country {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private long id;
+    private String countryName;
 
-    private String colorName;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy ="colors")
-    private List<ProductItem> productItem = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy ="country")
+    private List<Address> addresses = new ArrayList<>();
 }
