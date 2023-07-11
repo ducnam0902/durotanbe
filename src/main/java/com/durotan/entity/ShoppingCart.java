@@ -1,6 +1,6 @@
 package com.durotan.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -19,5 +19,5 @@ public class ShoppingCart {
 
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "shoppingCart")
-    private User user;
+    private SiteUser siteUser;
 }

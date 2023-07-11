@@ -13,7 +13,7 @@ public class ProductDto {
     String sku;
     Long quanityInStock;
     BigDecimal price;
-    List<String> images;
+    String images;
     String size;
     String productName;
     String description;

@@ -1,9 +1,9 @@
 package com.durotan.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import lombok.Data;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -33,7 +33,7 @@ public class Address {
             cascade = { CascadeType.PERSIST, CascadeType.MERGE},
             fetch = FetchType.LAZY, mappedBy = "address"    )
     @JsonIgnore
-    private Set<User> users = new HashSet<>();
+    private Set<SiteUser> siteUsers = new HashSet<>();
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy ="address")
     private List<ShopOrder> shopOrders = new ArrayList<>();

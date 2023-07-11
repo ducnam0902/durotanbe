@@ -2,7 +2,7 @@ package com.durotan.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
@@ -19,7 +19,7 @@ public class ProductItem {
     private String sku;
     private long quanityInStock;
     private BigDecimal price;
-    private List<String> images;
+    private String images;
 
     @ManyToOne
     @JoinColumn( name ="size_id", referencedColumnName = "id")

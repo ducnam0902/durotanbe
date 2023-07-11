@@ -1,7 +1,7 @@
 package com.durotan.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class ShopOrder {
     @ManyToOne
     @JoinColumn( name = "user_id", referencedColumnName = "id")
     @JsonIgnore
-    private User user;
+    private SiteUser siteUser;
 
     @ManyToOne
     @JoinColumn( name = "payment_method_id", referencedColumnName = "id")

@@ -1,6 +1,6 @@
 package com.durotan.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 
 import java.util.ArrayList;
@@ -10,8 +10,8 @@ import java.util.Set;
 
 @Entity
 @Data
-@Table( name = "user")
-public class User {
+@Table( name = "site_user")
+public class SiteUser {
     @Id
     @GeneratedValue( strategy = GenerationType.IDENTITY)
     private long id;
@@ -19,7 +19,7 @@ public class User {
     private String phoneNumber;
     private String password;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy ="user")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy ="siteUser")
     private List<UserPaymentMethod> paymentMethod = new ArrayList<>();
 
     @ManyToMany( cascade = CascadeType.ALL)
@@ -33,10 +33,10 @@ public class User {
     @JoinColumn(name ="shopping_cart_id", referencedColumnName = "id")
     private ShoppingCart shoppingCart;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy ="user")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy ="siteUser")
     private List<ShopOrder> shopOrders= new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy ="user")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy ="siteUser")
     private List<UserReview> userReviews = new ArrayList<>();
 
 }

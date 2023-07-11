@@ -1,7 +1,7 @@
 package com.durotan.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 
 @Entity
@@ -15,9 +15,9 @@ public class UserReview {
     private String comments;
 
     @ManyToOne
-    @JoinColumn( name = "user", referencedColumnName = "id")
+    @JoinColumn( name = "user_id", referencedColumnName = "id")
     @JsonIgnore
-    private User user;
+    private SiteUser siteUser;
 
     @ManyToOne
     @JoinColumn( name ="order_line", referencedColumnName = "id")
