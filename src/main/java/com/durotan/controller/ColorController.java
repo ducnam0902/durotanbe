@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api/v1/color")
+@RequestMapping(value ="/api/v1/color", produces = "application/json")
 public class ColorController {
     private ColorService colorService;
 
@@ -21,7 +22,7 @@ public class ColorController {
         return new ResponseEntity<>(color, HttpStatus.CREATED);
     }
 
-    @GetMapping("{id}")
+    @GetMapping(value = "{id}")
     public ResponseEntity<ColorDto> getColorById(@PathVariable("id") Long colorId){
         ColorDto colorDto = colorService.getColorById(colorId);
         return ResponseEntity.ok(colorDto);
@@ -33,13 +34,13 @@ public class ColorController {
         return ResponseEntity.ok(colors);
     }
 
-    @PutMapping("{id}")
+    @PutMapping(value = "{id}")
     public ResponseEntity<ColorDto> updateColor(@PathVariable("id") Long colorId, @RequestBody ColorDto updatedColor){
         ColorDto colorDto = colorService.updateColor(colorId, updatedColor);
         return ResponseEntity.ok(colorDto);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping(value="{id}")
     public ResponseEntity<String> deleteColor(@PathVariable("id") Long colorId){
         colorService.deleteColor(colorId);
         return ResponseEntity.ok("Color deleted successfully.");
