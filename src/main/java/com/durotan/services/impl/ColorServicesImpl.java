@@ -27,7 +27,6 @@ public class ColorServicesImpl implements ColorService {
     @Override
     public ColorDto getColorById(Long colorId) {
         Color color = colorRepository.findById(colorId).orElseThrow(() -> new ResourceNotFoundException("Color is not exists with a given id" + colorId));
-        System.out.println(color.toString());
         return ColorMapper.mapToColorDto(color);
     }
 
