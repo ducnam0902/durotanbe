@@ -1,0 +1,10 @@
+com\durotan\services\SizeServices.class
+com\durotan\controller\ProductCategoryController.class
+com\durotan\daodto\SizeDto.class
+com\durotan\services\impl\ProductCategoryServicesImpl.class
+com\durotan\mapper\ProductCategoryMapper.class
+com\durotan\services\impl\SizeServicesImpl.class
+com\durotan\daodto\ProductCategoryDto.class
+com\durotan\controller\SizeController.class
+com\durotan\mapper\SizeMapper.class
+com\durotan\services\ProductCategoryServices.class
