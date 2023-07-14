@@ -7,8 +7,8 @@ public class ProductCategoryMapper {
 
     public static ProductCategoryDto mapToProductCategoryDto(ProductCategory productCategory){
         ProductCategoryDto productCategoryDto = new ProductCategoryDto();
-        productCategoryDto.setId(productCategoryDto.getId());
-        productCategoryDto.setCategoryName(productCategoryDto.getCategoryName());
+        productCategoryDto.setId(productCategory.getId());
+        productCategoryDto.setCategoryName(productCategory.getCategoryName());
         return productCategoryDto;
     };
 

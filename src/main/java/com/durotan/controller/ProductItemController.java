@@ -1,7 +1,6 @@
 package com.durotan.controller;
 
 import com.durotan.daodto.ProductDto;
-import com.durotan.entity.ProductItem;
 import com.durotan.services.ProductItemServices;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,7 +1,6 @@
 package com.durotan.controller;
 
 import com.durotan.daodto.ProductCategoryDto;
-import com.durotan.entity.ProductCategory;
 import com.durotan.services.ProductCategoryServices;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @AllArgsConstructor
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping( value = "/api/v1/productcategory", produces = "application/json")
 public class ProductCategoryController {

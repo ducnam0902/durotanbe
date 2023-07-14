@@ -6,12 +6,18 @@ import com.durotan.exception.ResourceNotFoundException;
 import com.durotan.mapper.ProductCategoryMapper;
 import com.durotan.repository.ProductCategoryRepository;
 import com.durotan.services.ProductCategoryServices;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Service
 public class ProductCategoryServicesImpl implements ProductCategoryServices {
     private ProductCategoryRepository productCategoryRepository;
+
+    public ProductCategoryServicesImpl(ProductCategoryRepository productCategoryRepository) {
+        this.productCategoryRepository = productCategoryRepository;
+    }
+
     @Override
     public ProductCategoryDto createProductCategory(ProductCategoryDto productCategoryDto) {
         ProductCategory newProductCategory = ProductCategoryMapper.mapToProductCategory(productCategoryDto);

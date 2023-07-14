@@ -1,6 +1,5 @@
 package com.durotan.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import lombok.Data;
 
@@ -16,11 +15,9 @@ public class UserReview {
 
     @ManyToOne
     @JoinColumn( name = "user_id", referencedColumnName = "id")
-    @JsonIgnore
     private SiteUser siteUser;
 
     @ManyToOne
     @JoinColumn( name ="order_line", referencedColumnName = "id")
-    @JsonIgnore
     private OrderLine orderLine;
 }

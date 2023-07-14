@@ -1,6 +1,5 @@
 package com.durotan.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import lombok.Data;
 
@@ -15,12 +14,10 @@ public class ShoppingCartItem {
 
     @ManyToOne
     @JoinColumn( name = "shopping_cart_id", referencedColumnName = "id")
-    @JsonIgnore
     private ShoppingCart shoppingCart;
 
     @ManyToOne
     @JoinColumn( name = "product_item_id", referencedColumnName = "id")
-    @JsonIgnore
     private ProductItem productItem;
 
 }
