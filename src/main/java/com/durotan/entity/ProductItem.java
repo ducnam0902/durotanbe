@@ -17,7 +17,8 @@ public class ProductItem {
     private String sku;
     private long quanityInStock;
     private BigDecimal price;
-    private String images;
+    private String image1;
+    private String image2;
 
     @ManyToOne
     @JoinColumn( name ="size_id", referencedColumnName = "id")

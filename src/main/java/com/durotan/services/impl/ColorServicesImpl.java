@@ -33,7 +33,7 @@ public class ColorServicesImpl implements ColorService {
     @Override
     public List<ColorDto> getAllColor() {
         List<Color> colors = colorRepository.findAll();
-        return colors.stream().map(color -> ColorMapper.mapToColorDto(color))
+        return colors.stream().map(ColorMapper::mapToColorDto)
                 .collect(Collectors.toList());
     }
 
