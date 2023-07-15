@@ -2,6 +2,7 @@ package com.durotan.services.impl;
 
 import com.durotan.daodto.ProductDto;
 import com.durotan.entity.Product;
+import com.durotan.entity.ProductCategory;
 import com.durotan.exception.ResourceNotFoundException;
 import com.durotan.mapper.ProductMapper;
 import com.durotan.repository.ProductCategoryRepository;
@@ -18,9 +19,12 @@ import java.util.stream.Collectors;
 public class ProductServicesImpl implements ProductServices {
     private ProductRepository productRepository;
     private ProductCategoryRepository productCategoryRepository;
+
     @Override
     public ProductDto createProduct(ProductDto productDto) {
-        Product newProduct = ProductMapper.mapToProduct(productDto);
+        ProductCategory productCategory = productCategoryRepository.findById(productDto.getCategoryId())
+                .orElseThrow(() -> new ResourceNotFoundException("Product is not exists with a given id" + productDto.getCategoryId()));
+        Product newProduct = ProductMapper.mapToProduct(productDto, productCategory);
         Product savedProduct = productRepository.save(newProduct);
         return ProductMapper.mapToProductDto(savedProduct);
     }

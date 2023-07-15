@@ -1,41 +1,57 @@
-//package com.durotan.services.impl;
-//
-//import com.durotan.daodto.ProductDto;
-//import com.durotan.entity.ProductItem;
-//import com.durotan.repository.ProductItemRepository;
-//import com.durotan.services.ProductItemServices;
-//import org.springframework.stereotype.Service;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//@Service
-//public class ProductItemServicesImpl implements ProductItemServices {
-//    private ProductItemRepository productItemRepository;
-//
-//    public ProductItemServicesImpl( ProductItemRepository productItemRepository){
-//        this.productItemRepository = productItemRepository;
-//    }
-//
-//    @Override
-//    public List<ProductDto> getAllProductItem() {
-//        List<ProductItem> productItems = productItemRepository.findAll();
-//        List<ProductDto> productRes = new ArrayList<>();
-//        productItems.forEach(items -> {
-//            ProductDto product = new ProductDto();
-//            product.setId(items.getId());
-//            product.setSku(items.getSku());
-//            product.setQuanityInStock(items.getQuanityInStock());
-//            product.setPrice(items.getPrice());
-//            product.setImage1(items.getImage1());
-//            product.setImage2(items.getImage2());
-//            product.setSize(items.getSize().getSizeName());
-//            product.setProductName(items.getProduct().getName());
-//            product.setColor(items.getColors().getColorName());
-//            product.setDescription(items.getProduct().getDescription());
-//            productRes.add(product);
-//
-//        });
-//        return productRes;
-//    }
-//}
+package com.durotan.services.impl;
+
+import com.durotan.daodto.ProductItemDto;
+import com.durotan.entity.Color;
+import com.durotan.entity.Product;
+import com.durotan.entity.ProductItem;
+import com.durotan.entity.Size;
+import com.durotan.exception.ResourceNotFoundException;
+import com.durotan.mapper.ProductItemMapper;
+import com.durotan.repository.ColorRepository;
+import com.durotan.repository.ProductItemRepository;
+import com.durotan.repository.ProductRepository;
+import com.durotan.repository.SizeRepository;
+import com.durotan.services.ProductItemServices;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+@AllArgsConstructor
+public class ProductItemServicesImpl implements ProductItemServices {
+    private ProductItemRepository productItemRepository;
+    private SizeRepository sizeRepository;
+    private ColorRepository colorRepository;
+    private ProductRepository productRepository;
+
+
+    @Override
+    public ProductItemDto createProductItem(ProductItemDto productItemDto) {
+        Size size = sizeRepository.findById(productItemDto.getSize())
+                .orElseThrow(() -> new ResourceNotFoundException("Size is not exists with a given id" + productItemDto.getSize()));
+        Color color = colorRepository.findById(productItemDto.getColor())
+                .orElseThrow(() -> new ResourceNotFoundException("Color is not exists with a given id" + productItemDto.getColor()));
+        Product product = productRepository.findById(productItemDto.getProduct())
+                .orElseThrow(() -> new ResourceNotFoundException("Product is not exists with a given id" + productItemDto.getProduct()));
+        ProductItem newProductItem = ProductItemMapper.mapToProductItem(productItemDto, size, color, product);
+        ProductItem savedProductItem = productItemRepository.save(newProductItem);
+        return ProductItemMapper.mapToProductItemDto(savedProductItem);
+    }
+
+    @Override
+    public ProductItemDto getProductItemById(Long productItemId) {
+        ProductItem productItem = productItemRepository.findById(productItemId)
+                .orElseThrow(() -> new ResourceNotFoundException("Product item is not exists with a given id" + productItemId));
+
+        return ProductItemMapper.mapToProductItemDto(productItem);
+    }
+
+    @Override
+    public List<ProductItemDto> getAllProductItem() {
+        List<ProductItem> productItems = productItemRepository.findAll();
+        return productItems.stream().map(productItem -> ProductItemMapper.mapToProductItemDto(productItem))
+                .collect(Collectors.toList());
+    }
+}

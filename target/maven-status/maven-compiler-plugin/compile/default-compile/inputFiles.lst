@@ -1,11 +1,14 @@
 F:\Workspace\durotanbe\src\main\java\com\durotan\entity\Address.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\entity\UserPaymentMethod.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\daodto\ProductDto.java
+F:\Workspace\durotanbe\src\main\java\com\durotan\services\impl\ProductServicesImpl.java
+F:\Workspace\durotanbe\src\main\java\com\durotan\services\ProductServices.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\services\impl\ProductCategoryServicesImpl.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\entity\ShopOrder.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\entity\SiteUser.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\mapper\ColorMapper.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\controller\ProductCategoryController.java
+F:\Workspace\durotanbe\src\main\java\com\durotan\daodto\ProductItemDto.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\repository\UserPaymentMethodRepository.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\repository\AddressRepository.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\mapper\ProductCategoryMapper.java
@@ -14,8 +17,11 @@ F:\Workspace\durotanbe\src\main\java\com\durotan\repository\PaymentRepository.ja
 F:\Workspace\durotanbe\src\main\java\com\durotan\entity\ProductCategory.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\controller\ColorController.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\daodto\ProductCategoryDto.java
+F:\Workspace\durotanbe\src\main\java\com\durotan\mapper\ProductMapper.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\DurotanApplication.java
+F:\Workspace\durotanbe\src\main\java\com\durotan\mapper\ProductItemMapper.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\services\impl\SizeServicesImpl.java
+F:\Workspace\durotanbe\src\main\java\com\durotan\controller\ProductController.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\repository\ShoppingCartItemRepository.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\entity\OrderStatus.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\controller\ProductItemController.java

@@ -1,10 +1,15 @@
-//package com.durotan.services;
-//
-//import com.durotan.daodto.ProductDto;
-//
-//import java.util.List;
-//
+package com.durotan.services;
 
-//public interface ProductItemServices {
-//    List<ProductDto> getAllProductItem();
-//}
+
+import com.durotan.daodto.ProductItemDto;
+
+import java.util.List;
+
+
+public interface ProductItemServices {
+
+    ProductItemDto createProductItem(ProductItemDto productItemDto);
+
+    ProductItemDto getProductItemById(Long productItemId);
+    List<ProductItemDto> getAllProductItem();
+}

@@ -8,6 +8,6 @@ public class ProductDto {
     Long id;
     String name;
     String description;
-    ProductCategoryDto category;
+    Long categoryId;
 
 }

@@ -28,7 +28,7 @@ public class Address {
     private Country country;
 
     @ManyToMany(
-            cascade = { CascadeType.PERSIST, CascadeType.MERGE},
+            cascade = CascadeType.ALL,
             fetch = FetchType.LAZY, mappedBy = "address"    )
     private Set<SiteUser> siteUsers = new HashSet<>();
 
