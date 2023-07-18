@@ -1,7 +1,7 @@
 package com.durotan.controller;
 
-import com.durotan.daodto.ProductDto;
 import com.durotan.daodto.ProductItemDto;
+import com.durotan.daodto.ProductResultDto;
 import com.durotan.services.ProductItemServices;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -32,5 +32,11 @@ public class ProductItemController {
     @GetMapping
     public ResponseEntity<List<ProductItemDto>> getAllProducts(){
         return ResponseEntity.ok(productItemServices.getAllProductItem());
+    }
+
+    @GetMapping( value = "/result")
+    public ResponseEntity<List<ProductResultDto>> getFeaturedProduct(){
+        List<ProductResultDto> productResultList = productItemServices.getFeaturedProduct();
+        return ResponseEntity.ok(productResultList);
     }
 }
