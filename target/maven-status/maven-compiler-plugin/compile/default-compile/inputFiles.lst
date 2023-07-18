@@ -12,7 +12,9 @@ F:\Workspace\durotanbe\src\main\java\com\durotan\daodto\ProductItemDto.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\repository\UserPaymentMethodRepository.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\repository\AddressRepository.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\mapper\ProductCategoryMapper.java
+F:\Workspace\durotanbe\src\main\java\com\durotan\daodto\SizeGroupDto.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\entity\Payment.java
+F:\Workspace\durotanbe\src\main\java\com\durotan\daodto\ColorGroupDto.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\repository\PaymentRepository.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\entity\ProductCategory.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\controller\ColorController.java
@@ -47,6 +49,7 @@ F:\Workspace\durotanbe\src\main\java\com\durotan\services\ProductCategoryService
 F:\Workspace\durotanbe\src\main\java\com\durotan\services\ProductItemServices.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\entity\Size.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\repository\ProductCategoryRepository.java
+F:\Workspace\durotanbe\src\main\java\com\durotan\daodto\ProductResultDto.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\repository\ProductItemRepository.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\repository\ColorRepository.java
 F:\Workspace\durotanbe\src\main\java\com\durotan\repository\OrderLineRepository.java
