@@ -4,8 +4,8 @@ import lombok.Data;
 
 import java.util.List;
 @Data
-public class QuanityGroupDto {
-    String color;
+public class ColorGroupDto {
+    String colorName;
     List<String> images;
     List<SizeGroupDto> size;
 }

@@ -9,6 +9,6 @@ import java.util.List;
 public class ProductResultDto {
     String name;
     BigDecimal price;
-    List<QuanityGroupDto> quanity;
+    List<ColorGroupDto> quanity;
 
 }

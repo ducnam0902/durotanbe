@@ -2,7 +2,7 @@ package com.durotan.services.impl;
 
 import com.durotan.daodto.ProductItemDto;
 import com.durotan.daodto.ProductResultDto;
-import com.durotan.daodto.QuanityGroupDto;
+import com.durotan.daodto.ColorGroupDto;
 import com.durotan.daodto.SizeGroupDto;
 import com.durotan.entity.Color;
 import com.durotan.entity.Product;
@@ -18,10 +18,10 @@ import com.durotan.services.ProductItemServices;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 @Service
@@ -65,17 +65,33 @@ public class ProductItemServicesImpl implements ProductItemServices {
     public List<ProductResultDto> getFeaturedProduct() {
         List<ProductResultDto> productResultList = new ArrayList<>();
         List<Product> productItems = productRepository.findTop4ByOrderByIdDesc();
+
         productItems.forEach(product -> {
-            ProductResultDto newProductResult = new ProductResultDto();
-            newProductResult.setName(product.getName());
-            List<ProductItem> listProducts = productItemRepository.findByProductId(product.getId());
-            listProducts.forEach(item -> {
-                System.out.println(item.getProduct().getName());
+            List<Long> allColorProducts = productItemRepository.findAllColorByProductId(product.getId());
+            ProductResultDto aProduct = new ProductResultDto();
+            List<ColorGroupDto> groupColor = new ArrayList<>();
+            AtomicReference<BigDecimal> price = new AtomicReference<BigDecimal>();
+            allColorProducts.forEach(colorProduct -> {
+                List<ProductItem> productByColor = productItemRepository.findAllByProductIdAndColorId(product.getId(), colorProduct);
+                ColorGroupDto aColorGroup = new ColorGroupDto();
+                aColorGroup.setColorName(productByColor.get(0).getColors().getColorName());
+                aColorGroup.setImages(List.of(productByColor.get(0).getImage1(), productByColor.get(0).getImage2()));
+                price.set(productByColor.get(0).getPrice());
+                List<SizeGroupDto> sizeGroupList = new ArrayList<>();
+                productByColor.forEach(singleProduct -> {
+                    SizeGroupDto sizeItem = new SizeGroupDto();
+                    sizeItem.setSizeName(singleProduct.getSize().getSizeName());
+                    sizeItem.setQuanityInStock(singleProduct.getQuanityInStock());
+                    sizeGroupList.add(sizeItem);
+                });
+                aColorGroup.setSize(sizeGroupList);
+                groupColor.add(aColorGroup);
             });
-            productResultList.add(newProductResult);
+            aProduct.setName(product.getName());
+            aProduct.setQuanity(groupColor);
+            aProduct.setPrice(price.get());
+            productResultList.add(aProduct);
         });
-
-
 
         return productResultList;
     }
