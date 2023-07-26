@@ -14,7 +14,10 @@ public class ProductCategoryMapper {
 
     public static ProductCategory mapToProductCategory(ProductCategoryDto productCategoryDto){
         ProductCategory productCategory = new ProductCategory();
-        productCategory.setId(productCategoryDto.getId());
+        if(productCategoryDto.getId() != null){
+            productCategory.setId(productCategoryDto.getId());
+        }
+
         productCategory.setCategoryName(productCategoryDto.getCategoryName());
         return productCategory;
     }
