@@ -3,6 +3,7 @@ package com.durotan.entity;
 import javax.persistence.*;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class Product {
     private String name;
     @Column( length = 100000 )
     private String description;
-
+    private BigDecimal price;
     @ManyToOne
     @JoinColumn(name ="category_id", referencedColumnName = "id")
     private ProductCategory category;

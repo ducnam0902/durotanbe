@@ -14,7 +14,6 @@ public class ProductItemMapper {
         productItemDto.setId(productItem.getId());
         productItemDto.setSku(productItem.getSku());
         productItemDto.setQuanityInStock(productItem.getQuanityInStock());
-        productItemDto.setPrice(productItem.getPrice());
         productItemDto.setImages1(productItem.getImage1());
         productItemDto.setImages2(productItem.getImage2());
         productItemDto.setSize(productItem.getSize().getId());
@@ -28,7 +27,6 @@ public class ProductItemMapper {
         ProductItem productItem = new ProductItem();
         productItem.setSku(productItemDto.getSku());
         productItem.setQuanityInStock(productItemDto.getQuanityInStock());
-        productItem.setPrice(productItemDto.getPrice());
         productItem.setImage1(productItemDto.getImages1());
         productItem.setImage2(productItemDto.getImages2());
         productItem.setSize(size);

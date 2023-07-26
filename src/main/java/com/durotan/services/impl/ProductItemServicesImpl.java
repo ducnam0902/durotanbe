@@ -18,10 +18,8 @@ import com.durotan.services.ProductItemServices;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 @Service
@@ -70,13 +68,11 @@ public class ProductItemServicesImpl implements ProductItemServices {
             List<Long> allColorProducts = productItemRepository.findAllColorByProductId(product.getId());
             ProductResultDto aProduct = new ProductResultDto();
             List<ColorGroupDto> groupColor = new ArrayList<>();
-            AtomicReference<BigDecimal> price = new AtomicReference<BigDecimal>();
             allColorProducts.forEach(colorProduct -> {
                 List<ProductItem> productByColor = productItemRepository.findAllByProductIdAndColorId(product.getId(), colorProduct);
                 ColorGroupDto aColorGroup = new ColorGroupDto();
                 aColorGroup.setColorName(productByColor.get(0).getColors().getColorName());
                 aColorGroup.setImages(List.of(productByColor.get(0).getImage1(), productByColor.get(0).getImage2()));
-                price.set(productByColor.get(0).getPrice());
                 List<SizeGroupDto> sizeGroupList = new ArrayList<>();
                 productByColor.forEach(singleProduct -> {
                     SizeGroupDto sizeItem = new SizeGroupDto();
@@ -87,9 +83,9 @@ public class ProductItemServicesImpl implements ProductItemServices {
                 aColorGroup.setSize(sizeGroupList);
                 groupColor.add(aColorGroup);
             });
+            aProduct.setPrice(product.getPrice());
             aProduct.setName(product.getName());
             aProduct.setQuanity(groupColor);
-            aProduct.setPrice(price.get());
             productResultList.add(aProduct);
         });
 

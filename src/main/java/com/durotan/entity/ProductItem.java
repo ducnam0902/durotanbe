@@ -3,7 +3,6 @@ package com.durotan.entity;
 import javax.persistence.*;
 import lombok.Data;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +15,6 @@ public class ProductItem {
     private long id;
     private String sku;
     private long quanityInStock;
-    private BigDecimal price;
     private String image1;
     private String image2;
 
