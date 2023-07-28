@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/v1/product-item")
+@RequestMapping("/api/v1/products")
 public class ProductItemController {
 
     private ProductItemServices productItemServices;
@@ -34,7 +34,7 @@ public class ProductItemController {
         return ResponseEntity.ok(productItemServices.getAllProductItem());
     }
 
-    @GetMapping( value = "/result")
+    @GetMapping( value = "/featured")
     public ResponseEntity<List<ProductResultDto>> getFeaturedProduct(){
         List<ProductResultDto> productResultList = productItemServices.getFeaturedProduct();
         return ResponseEntity.ok(productResultList);
