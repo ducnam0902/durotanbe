@@ -84,6 +84,7 @@ public class ProductItemServicesImpl implements ProductItemServices {
                 groupColor.add(aColorGroup);
             });
             aProduct.setPrice(product.getPrice());
+            aProduct.setCategory(product.getCategory().getCategoryName());
             aProduct.setName(product.getName());
             aProduct.setQuanity(groupColor);
             productResultList.add(aProduct);

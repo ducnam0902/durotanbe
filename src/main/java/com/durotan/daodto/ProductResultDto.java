@@ -8,6 +8,7 @@ import java.util.List;
 @Data
 public class ProductResultDto {
     String name;
+    String category;
     BigDecimal price;
     List<ColorGroupDto> quanity;
 
