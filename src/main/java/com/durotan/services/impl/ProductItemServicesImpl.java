@@ -1,19 +1,10 @@
 package com.durotan.services.impl;
 
-import com.durotan.daodto.ProductItemDto;
-import com.durotan.daodto.ProductResultDto;
-import com.durotan.daodto.ColorGroupDto;
-import com.durotan.daodto.SizeGroupDto;
-import com.durotan.entity.Color;
-import com.durotan.entity.Product;
-import com.durotan.entity.ProductItem;
-import com.durotan.entity.Size;
+import com.durotan.daodto.*;
+import com.durotan.entity.*;
 import com.durotan.exception.ResourceNotFoundException;
 import com.durotan.mapper.ProductItemMapper;
-import com.durotan.repository.ColorRepository;
-import com.durotan.repository.ProductItemRepository;
-import com.durotan.repository.ProductRepository;
-import com.durotan.repository.SizeRepository;
+import com.durotan.repository.*;
 import com.durotan.services.ProductItemServices;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,6 +20,7 @@ public class ProductItemServicesImpl implements ProductItemServices {
     private SizeRepository sizeRepository;
     private ColorRepository colorRepository;
     private ProductRepository productRepository;
+    private ProductCategoryRepository categoryRepository;
 
 
     @Override
@@ -55,7 +47,7 @@ public class ProductItemServicesImpl implements ProductItemServices {
     @Override
     public List<ProductItemDto> getAllProductItem() {
         List<ProductItem> productItems = productItemRepository.findAll();
-        return productItems.stream().map(productItem -> ProductItemMapper.mapToProductItemDto(productItem))
+        return productItems.stream().map(ProductItemMapper::mapToProductItemDto)
                 .collect(Collectors.toList());
     }
 
@@ -90,6 +82,49 @@ public class ProductItemServicesImpl implements ProductItemServices {
             productResultList.add(aProduct);
         });
 
+        return productResultList;
+    }
+
+    @Override
+    public List<ProductResultDto> getFilterProduct(FilterCriteriaDto conditions) {
+        List<ProductResultDto> productResultList = new ArrayList<>();
+        if(conditions.getCategoryName() != null){
+            ProductCategory category = categoryRepository.findByCategoryName(conditions.getCategoryName());
+            List<Product> products = productRepository.findByCategory(category);
+            List<Color> colors = colorRepository.findByColorNameIn(conditions.getColorName());
+            products.forEach(product -> {
+                ProductResultDto productItem = new ProductResultDto();
+                productItem.setName(product.getName());
+                productItem.setCategory(product.getCategory().getCategoryName());
+                productItem.setPrice(product.getPrice());
+                List<ColorGroupDto> colorGroup = new ArrayList<>();
+                colors.forEach(color -> {
+                    ColorGroupDto singleColor = new ColorGroupDto();
+
+                    List<SizeGroupDto> sizeGroup = new ArrayList<>();
+                    List<ProductItem> listProduct = productItemRepository.findAllByProductIdAndColorId(product.getId(), color.getId());
+                    listProduct.forEach(productItem1 -> {
+                        SizeGroupDto singleSize = new SizeGroupDto();
+                        singleSize.setSizeName(productItem1.getSize().getSizeName());
+                        singleSize.setQuanityInStock(productItem1.getQuanityInStock());
+                        sizeGroup.add(singleSize);
+                    });
+                    singleColor.setColorName(color.getColorName());
+                    singleColor.setSize(sizeGroup);
+                    if(!listProduct.isEmpty()){
+                        singleColor.setImages(List.of(
+                                listProduct.get(0).getImage1(),
+                                listProduct.get(0).getImage2()
+                        ));
+                    }
+
+                    colorGroup.add(singleColor);
+
+                });
+                productItem.setQuanity(colorGroup);
+                productResultList.add(productItem);
+            });
+        }
         return productResultList;
     }
 }

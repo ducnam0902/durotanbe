@@ -13,5 +13,4 @@ public class ProductItemDto {
     long color;
     long product;
 
-
 }
