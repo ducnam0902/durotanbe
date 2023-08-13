@@ -1,5 +1,6 @@
 package com.durotan.controller;
 
+import com.durotan.daodto.FilterCriteriaDto;
 import com.durotan.daodto.ProductItemDto;
 import com.durotan.daodto.ProductResultDto;
 import com.durotan.services.ProductItemServices;
@@ -38,6 +39,12 @@ public class ProductItemController {
     @GetMapping( value = "/featured")
     public ResponseEntity<List<ProductResultDto>> getFeaturedProduct(){
         List<ProductResultDto> productResultList = productItemServices.getFeaturedProduct();
+        return ResponseEntity.ok(productResultList);
+    }
+
+    @PostMapping( value = "/filter")
+    public ResponseEntity<List<ProductResultDto>> getFilterProduct(@RequestBody FilterCriteriaDto conditions){
+        List<ProductResultDto> productResultList = productItemServices.getFilterProduct(conditions);
         return ResponseEntity.ok(productResultList);
     }
 }
