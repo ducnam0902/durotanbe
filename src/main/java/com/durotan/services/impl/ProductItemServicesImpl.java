@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.durotan.mapper.ProductResultMapper.mapToProductResultListDto;
+
 @Service
 @AllArgsConstructor
 public class ProductItemServicesImpl implements ProductItemServices {
@@ -54,32 +56,12 @@ public class ProductItemServicesImpl implements ProductItemServices {
     @Override
     public List<ProductResultDto> getFeaturedProduct() {
         List<ProductResultDto> productResultList = new ArrayList<>();
-        List<Product> productItems = productRepository.findTop4ByOrderByIdDesc();
+        List<Product> products = productRepository.findTop4ByOrderByIdDesc();
 
-        productItems.forEach(product -> {
-            List<Long> allColorProducts = productItemRepository.findAllColorByProductId(product.getId());
-            ProductResultDto aProduct = new ProductResultDto();
-            List<ColorGroupDto> groupColor = new ArrayList<>();
-            allColorProducts.forEach(colorProduct -> {
-                List<ProductItem> productByColor = productItemRepository.findAllByProductIdAndColorId(product.getId(), colorProduct);
-                ColorGroupDto aColorGroup = new ColorGroupDto();
-                aColorGroup.setColorName(productByColor.get(0).getColors().getColorName());
-                aColorGroup.setImages(List.of(productByColor.get(0).getImage1(), productByColor.get(0).getImage2()));
-                List<SizeGroupDto> sizeGroupList = new ArrayList<>();
-                productByColor.forEach(singleProduct -> {
-                    SizeGroupDto sizeItem = new SizeGroupDto();
-                    sizeItem.setSizeName(singleProduct.getSize().getSizeName());
-                    sizeItem.setQuanityInStock(singleProduct.getQuanityInStock());
-                    sizeGroupList.add(sizeItem);
-                });
-                aColorGroup.setSize(sizeGroupList);
-                groupColor.add(aColorGroup);
-            });
-            aProduct.setPrice(product.getPrice());
-            aProduct.setCategory(product.getCategory().getCategoryName());
-            aProduct.setName(product.getName());
-            aProduct.setQuanity(groupColor);
-            productResultList.add(aProduct);
+        products.forEach(product -> {
+            List<ProductItem> productItems = productItemRepository.findAllByProduct(product);
+            List<ProductResultDto> productResultDtosList = mapToProductResultListDto(productItems);
+            productResultList.addAll(productResultDtosList);
         });
 
         return productResultList;
@@ -87,44 +69,34 @@ public class ProductItemServicesImpl implements ProductItemServices {
 
     @Override
     public List<ProductResultDto> getFilterProduct(FilterCriteriaDto conditions) {
-        List<ProductResultDto> productResultList = new ArrayList<>();
-        if(conditions.getCategoryName() != null){
+
+        if(conditions.getCategoryName().isBlank() && conditions.getColorName().size() == 0) {
+            List<ProductItem> listProduct = productItemRepository.findAll();
+            return mapToProductResultListDto(listProduct);
+        }
+
+        if(conditions.getCategoryName() != null && conditions.getColorName().size() == 0){
             ProductCategory category = categoryRepository.findByCategoryName(conditions.getCategoryName());
             List<Product> products = productRepository.findByCategory(category);
-            List<Color> colors = colorRepository.findByColorNameIn(conditions.getColorName());
+            List<ProductItem> totalProductItemList = new ArrayList<>();
             products.forEach(product -> {
-                ProductResultDto productItem = new ProductResultDto();
-                productItem.setName(product.getName());
-                productItem.setCategory(product.getCategory().getCategoryName());
-                productItem.setPrice(product.getPrice());
-                List<ColorGroupDto> colorGroup = new ArrayList<>();
-                colors.forEach(color -> {
-                    ColorGroupDto singleColor = new ColorGroupDto();
-
-                    List<SizeGroupDto> sizeGroup = new ArrayList<>();
-                    List<ProductItem> listProduct = productItemRepository.findAllByProductIdAndColorId(product.getId(), color.getId());
-                    listProduct.forEach(productItem1 -> {
-                        SizeGroupDto singleSize = new SizeGroupDto();
-                        singleSize.setSizeName(productItem1.getSize().getSizeName());
-                        singleSize.setQuanityInStock(productItem1.getQuanityInStock());
-                        sizeGroup.add(singleSize);
-                    });
-                    singleColor.setColorName(color.getColorName());
-                    singleColor.setSize(sizeGroup);
-                    if(!listProduct.isEmpty()){
-                        singleColor.setImages(List.of(
-                                listProduct.get(0).getImage1(),
-                                listProduct.get(0).getImage2()
-                        ));
-                    }
-
-                    colorGroup.add(singleColor);
-
-                });
-                productItem.setQuanity(colorGroup);
-                productResultList.add(productItem);
+                List<ProductItem> productItemList = productItemRepository.findAllByProduct(product);
+                totalProductItemList.addAll(productItemList);
             });
+            return mapToProductResultListDto(totalProductItemList);
         }
-        return productResultList;
+
+        if(conditions.getCategoryName() == null && conditions.getColorName().size() != 0){
+            List<Color> colors = colorRepository.findByColorNameIn(conditions.getColorName());
+            List<ProductItem> listProduct = productItemRepository.findByColorsIn(colors);
+            return mapToProductResultListDto(listProduct);
+        }
+
+        ProductCategory category = categoryRepository.findByCategoryName(conditions.getCategoryName());
+        List<Product> products = productRepository.findByCategory(category);
+        List<Color> colors = colorRepository.findByColorNameIn(conditions.getColorName());
+        List<ProductItem> listProduct = productItemRepository.findByProductInAndColorsIn(products,colors );
+
+        return mapToProductResultListDto(listProduct);
     }
 }

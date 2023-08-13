@@ -7,5 +7,5 @@ import java.util.List;
 public class ColorGroupDto {
     String colorName;
     List<String> images;
-    List<SizeGroupDto> size;
+    List<SizeGroupDto> sizeGroup;
 }

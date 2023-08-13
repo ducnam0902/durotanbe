@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class SizeGroupDto {
-    long quanityInStock;
+    long quanity;
     String sizeName;
 }
